@@ -1,0 +1,8 @@
+version: 3
+
+tasks:
+  install:
+    cmds:
+    - mkdir -p ~/.task
+    - cp -R . ~/.task
+    - cp TaskfileGlobal.yaml ~/Taskfile.yaml

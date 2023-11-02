@@ -1,0 +1,10 @@
+version: 3
+
+includes:
+  aws: "~/.task/aws/Taskfile.yaml"
+
+tasks:
+  update:
+    dir: ~/.task
+    cmds:
+    - git pull

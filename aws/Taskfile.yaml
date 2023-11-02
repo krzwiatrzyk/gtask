@@ -1,0 +1,5 @@
+version: 3
+
+includes:
+  ec2: 
+    taskfile: ec2/Taskfile.yaml
