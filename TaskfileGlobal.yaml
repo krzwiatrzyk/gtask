@@ -1,5 +1,8 @@
 version: 3
 
+vars:
+  VERSION: 0.1.0
+
 includes:
   aws: "~/.task/aws/Taskfile.yaml"
 
@@ -8,3 +11,5 @@ tasks:
     dir: ~/.task
     cmds:
     - git pull
+
+  version: echo {{ .VERSION }}
