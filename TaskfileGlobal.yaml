@@ -11,5 +11,6 @@ tasks:
     dir: ~/.task
     cmds:
     - git pull
+    - cp ~/.task/TaskfileGlobal.yaml ~/.task/Taskfile.yaml
 
   version: echo {{ .VERSION }}
