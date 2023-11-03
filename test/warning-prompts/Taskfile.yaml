@@ -1,0 +1,7 @@
+version: 3
+
+tasks:
+  warning:
+    prompt: "Do you want to proceed?"
+    cmds:
+    - echo "You said yes!"

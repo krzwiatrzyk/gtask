@@ -5,6 +5,7 @@ vars:
 
 includes:
   aws: "~/.task/aws/Taskfile.yaml"
+  test: "~/.task/test/Taskfile.yaml"
 
 tasks:
   update:

@@ -1,0 +1,14 @@
+version: 3
+
+tasks:
+  for:dynamic:
+    vars:
+      FILES:
+        sh: "ls -l -1 {{ .USER_WORKING_DIR }}"
+    cmds:
+    - cmd: |
+        echo "file -> {{ .ITEM }}"
+      silent: true
+      for:
+        var: FILES
+
