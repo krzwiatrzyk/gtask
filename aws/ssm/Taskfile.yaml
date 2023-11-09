@@ -1,0 +1,18 @@
+version: 3
+
+tasks:
+  parameter:write:
+    vars:
+      PATH:
+        sh: gum input --placeholder "/path/to/secret"
+      SECRET:
+        sh: gum input --placeholder "my-secret"
+    cmds:
+    - aws ssm put-parameter --name "{{ .PATH }}" --type SecureString --value '{{ .SECRET }}' --overwrite
+
+  parameter:read:
+    vars:
+      PATH:
+        sh: gum input --placeholder "/path/to/secret"
+    cmds:
+    - aws ssm get-parameter --name "{{ .PATH }}" --with-decryption | jq -r '.Parameter.Value'
