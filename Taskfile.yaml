@@ -3,7 +3,7 @@ version: 3
 tasks:
   install:
     cmds:
-    - rm -rf ~/.task
-    - mkdir -p ~/.task
-    - cp -R . ~/.task
+    # - rm -rf ~/.task
+    # - mkdir -p ~/.task
+    # - cp -R . ~/.task
     - cp TaskfileGlobal.yaml ~/Taskfile.yaml
