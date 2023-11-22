@@ -1,0 +1,5 @@
+version: 3
+
+includes:
+  tools: tools/Taskfile.yaml
+    

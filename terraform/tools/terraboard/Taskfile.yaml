@@ -1,0 +1,29 @@
+version: 3
+
+tasks:
+  start:
+    desc: |
+      Run Terraboard using docker-compose.
+      Ports on which service will be accessible: 8080(ui), 8081(swagger)
+    cmds:
+    - docker-compose up -d
+    requires:
+      vars:
+        - AWS_BUCKET
+        - AWS_DYNAMODB_TABLE
+    env:
+      AWS_BUCKET: "{{ .AWS_BUCKET }}"
+      AWS_DYNAMODB_TABLE: "{{ .AWS_DYNAMODB_TABLE }}"
+    preconditions:
+      - sh: test ! -z "$AWS_ACCESS_KEY_ID"
+        msg: Env AWS_ACCESS_KEY_ID must be set
+      - sh: test ! -z "$AWS_SECRET_ACCESS_KEY"
+        msg: Env AWS_SECRET_ACCESS_KEY must be set
+      - sh: test ! -z "$AWS_REGION"
+        msg: Env AWS_REGION must be set
+      - sh: test ! -z "$AWS_ACCESS_KEY_ID"
+        msg: Env AWS_ACCESS_KEY_ID must be set
+     
+  stop:
+    cmds:
+    - docker-compose down 
