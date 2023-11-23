@@ -5,7 +5,9 @@ vars:
 
 includes:
   aws: "~/.task/aws/Taskfile.yaml"
-  test: "~/.task/test/Taskfile.yaml"
+  test: 
+    taskfile: "~/.task/test/Taskfile.yaml"
+    dir: "~/.task/test"
   cloudflare: "~/.task/cloudflare/Taskfile.yaml"
   terraform: "~/.task/terraform/Taskfile.yaml"
 

@@ -12,3 +12,12 @@ tasks:
       for:
         var: FILES
 
+  for:old:
+    env:
+      NAMES:
+        sh: cat adam-and-eva.txt
+    cmds:
+    - cmd: |
+        for NAME in $NAMES; do
+          echo $NAME
+        done
