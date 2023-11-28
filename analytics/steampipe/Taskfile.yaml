@@ -1,0 +1,42 @@
+version: 3
+
+tasks:
+  prep:
+    cmds:
+    - mkdir -p ~/.task-storage/steampipe/dashboards/
+
+  run:
+    cmds:
+    - docker-compose run -it steampipe
+
+  run:query:
+    cmds:
+    - docker-compose run -it steampipe 'steampipe query'
+
+  dashboard:aws:
+    vars:
+      AWS_REGION:
+        sh: gum input --prompt "AWS Region > "
+      AWS_ACCESS_KEY_ID:
+        sh: gum input --password --prompt "AWS Access Key ID > "
+      AWS_SECRET_ACCESS_KEY:
+        sh: gum input --password --prompt "AWS Secret Access Key > "
+    deps:
+    - dashboard:install:aws
+    cmds:
+    - > 
+      docker-compose run -p "9194:9194" 
+      -e AWS_PROFILE={{ .AWS_PROFILE }}
+      -e AWS_REGION={{ .AWS_REGION }}
+      -e AWS_ACCESS_KEY_ID={{ .AWS_ACCESS_KEY_ID }}
+      -e AWS_SECRET_ACCESS_KEY={{ .AWS_SECRET_ACCESS_KEY }}
+      -it steampipe 
+      'cd /dashboards/aws-insights && steampipe dashboard --browser=false --dashboard-listen=network'
+    
+  dashboard:install:aws:
+    deps:
+    - prep
+    cmds:
+    - git clone https://github.com/turbot/steampipe-mod-aws-insights ~/.task-storage/steampipe/dashboards/aws-insights
+    status:
+    - test -d ~/.task-storage/steampipe/dashboards/aws-insights

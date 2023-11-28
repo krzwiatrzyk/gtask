@@ -1,0 +1,29 @@
+services:
+  steampipe:
+    image: ghcr.io/turbot/steampipe:0.21.1
+    volumes:
+    - config:/home/steampipe/.steampipe/config
+    - logs:/home/steampipe/.steampipe/logs
+    - data:/home/steampipe/.steampipe/db/14.2.0/data
+    - internal:/home/steampipe/.steampipe/internal
+    - plugins:/home/steampipe/.steampipe/plugins
+    - ~/.task-storage/steampipe/dashboards:/dashboards
+
+    entrypoint: 
+    - /bin/bash
+    - -c
+
+    command:
+    - |
+      steampipe plugin install steampipe aws
+      bash
+
+    # ports:
+    #   - "9194:9194"
+
+volumes:
+  config: {}
+  logs: {}
+  data: {}
+  internal: {}
+  plugins: {}
