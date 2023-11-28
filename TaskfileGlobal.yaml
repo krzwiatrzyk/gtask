@@ -1,7 +1,7 @@
 version: 3
 
 vars:
-  VERSION: 0.3.0
+  VERSION: 0.4.0
 
 includes:
   aws: "~/.task/aws/Taskfile.yaml"
@@ -10,6 +10,7 @@ includes:
     dir: "~/.task/test"
   cloudflare: "~/.task/cloudflare/Taskfile.yaml"
   terraform: "~/.task/terraform/Taskfile.yaml"
+  analytics: "~/.task/analytics/Taskfile.yaml"
 
 tasks:
   update:

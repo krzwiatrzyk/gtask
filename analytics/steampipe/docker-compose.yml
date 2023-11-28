@@ -16,7 +16,7 @@ services:
     command:
     - |
       steampipe plugin install steampipe aws
-      bash
+      steampipe service start --foreground
 
     # ports:
     #   - "9194:9194"
