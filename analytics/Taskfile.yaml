@@ -1,0 +1,6 @@
+version: 3
+
+includes:
+  steampipe:
+    taskfile: steampipe/Taskfile.yaml
+    dir: steampipe
