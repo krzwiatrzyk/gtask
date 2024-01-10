@@ -1,0 +1,34 @@
+version: 3
+
+tasks:
+  target-group:list-endpoints:
+    desc: List endpoints in a target group
+    silent: true
+    vars:
+      TARGET_GROUP_ARN:
+        sh: >
+          aws elbv2 describe-target-groups --query "TargetGroups[].{ARN: TargetGroupArn}" --output text --no-cli-pager |
+          fzf 
+    cmds:
+    - >
+      aws elbv2 describe-target-health 
+      --target-group-arn {{ .TARGET_GROUP_ARN }} 
+      --no-cli-pager --query "TargetHealthDescriptions[].{IP: Target.Id, State: TargetHealth.State}" 
+      --output text
+  
+  target-group:watch-endpoints:
+    desc: Watch endpoints in a target group
+    silent: true
+    vars:
+      TARGET_GROUP_ARN:
+        sh: >
+          aws elbv2 describe-target-groups --query "TargetGroups[].{ARN: TargetGroupArn}" --output text --no-cli-pager |
+          fzf 
+    cmds:
+    - >
+      viddy -n 1 -b -d
+      'aws elbv2 describe-target-health 
+      --target-group-arn {{ .TARGET_GROUP_ARN }} 
+      --no-cli-pager --query "TargetHealthDescriptions[].{IP: Target.Id, State: TargetHealth.State}" 
+      --output text'
+    

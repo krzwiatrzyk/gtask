@@ -5,4 +5,6 @@ includes:
     taskfile: ec2/Taskfile.yaml
   ssm:
     taskfile: ssm/Taskfile.yaml
+  lb:
+    taskfile: lb/Taskfile.yaml
     
