@@ -11,6 +11,7 @@ includes:
   cloudflare: "~/.task/cloudflare/Taskfile.yaml"
   terraform: "~/.task/terraform/Taskfile.yaml"
   analytics: "~/.task/analytics/Taskfile.yaml"
+  code: "~/.task/modules/code/Taskfile.yaml"
 
 tasks:
   update:
