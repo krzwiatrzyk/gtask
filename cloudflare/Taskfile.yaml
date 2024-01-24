@@ -3,17 +3,25 @@ version: 3
 tasks:
   api:list:rulesets:
     vars:
-      API_TOKEN: 
+      API_KEY: 
         sh: echo $CLOUDFLARE_API_KEY 
       ZONE_ID: '{{ .ZONE_ID }}'
+      EMAIL: 
+        sh: echo $CLOUDFLARE_EMAIL
     requires:
       vars:
       - ZONE_ID
+      # - EMAIL
     cmds:
     - silent: false
       cmd: >
         curl https://api.cloudflare.com/client/v4/zones/{{ .ZONE_ID }}/rulesets
-        --header "Authorization: Bearer {{ .API_TOKEN }}"
+        --header "X-Auth-Key: {{ .API_KEY }}"
+        --header "X-Auth-Email: {{ .EMAIL }}" 
+
+        #--header "Authorization: Bearer {{ .API_KEY }}"
     preconditions:
       - sh: test ! -z "$CLOUDFLARE_API_KEY"
         msg: "CLOUDFLARE_API_KEY is not set"
+      - sh: test ! -z "$CLOUDFLARE_EMAIL"
+        msg: "CLOUDFLARE_EMAIL is not set"
