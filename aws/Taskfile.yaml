@@ -7,4 +7,5 @@ includes:
     taskfile: ssm/Taskfile.yaml
   lb:
     taskfile: lb/Taskfile.yaml
-    
+  vpc:
+    taskfile: vpc/Taskfile.yaml

@@ -1,0 +1,15 @@
+version: 3
+
+tasks:
+  subnet-free-ips:
+    vars:
+      SUBNETS: 
+        sh: aws ec2 describe-subnets --query 'Subnets[*].[SubnetId]' --output text --no-paginate | tr '\n' ' '
+    silent: true
+    cmds:
+    - >
+      aws ec2 describe-subnets --subnet-ids
+      {{ .SUBNETS }} 
+      --query 'Subnets[*].[SubnetId,Tags[?Key==`Name`]|[0].Value,AvailabilityZone,AvailableIpAddressCount]'
+      --output table
+      --no-paginate
