@@ -1,0 +1,15 @@
+version: 3
+
+tasks:
+  list:
+    vars:
+      CLUSTERS:
+        sh: aws eks list-clusters --query 'clusters[*]' --output text
+    silent: true
+    cmds:
+      - cmd: >
+          aws eks describe-cluster --name {{ .ITEM }} 
+          --query 'cluster.{clusterName: name, version: version}' --output table
+          --no-paginate --no-cli-pager
+        for:
+          var: CLUSTERS

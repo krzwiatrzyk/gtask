@@ -9,3 +9,5 @@ includes:
     taskfile: lb/Taskfile.yaml
   vpc:
     taskfile: vpc/Taskfile.yaml
+  eks:
+    taskfile: eks/Taskfile.yaml
