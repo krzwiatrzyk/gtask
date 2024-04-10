@@ -1,0 +1,23 @@
+version: 3
+
+vars:
+  VERSION: v0.8.0
+
+includes:
+  aws: "~/.task/aws/Taskfile.yaml"
+  test: 
+    taskfile: "~/.task/test/Taskfile.yaml"
+    dir: "~/.task/test"
+  cloudflare: "~/.task/cloudflare/Taskfile.yaml"
+  terraform: "~/.task/terraform/Taskfile.yaml"
+  analytics: "~/.task/analytics/Taskfile.yaml"
+  code: "~/.task/modules/code/Taskfile.yaml"
+
+tasks:
+  update:
+    dir: ~/.task
+    cmds:
+    - git pull
+    - cp ~/.task/TaskfileGlobalLocal.yaml ~/Taskfile.yaml
+
+  version: echo {{ .VERSION }}

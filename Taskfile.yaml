@@ -6,12 +6,12 @@ tasks:
     # - rm -rf ~/.task
     # - mkdir -p ~/.task
     # - cp -R . ~/.task
-    - cp TaskfileGlobal.yaml ~/Taskfile.yaml
+    - cp TaskfileGlobalLocal.yaml ~/Taskfile.yaml
 
   release:
     vars:
       VERSION: 
-        sh: yq '.vars.VERSION' TaskfileGlobal.yaml 
+        sh: yq '.vars.VERSION' TaskfileGlobalLocal.yaml 
     cmds:
     - git tag {{ .VERSION }}
     - git push origin {{ .VERSION }}
