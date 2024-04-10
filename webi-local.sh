@@ -9,5 +9,5 @@ fi
 
 Download Global Taskfile repo
 test ! -d "${HOME}/.task" && git clone https://github.com/krzwiatrzyk/gtask.git ${HOME}/.task
-cp ${HOME}/.task/TaskfileGlobal.yaml ${HOME}/Taskfile.yaml
+cp ${HOME}/.task/TaskfileGlobalLocal.yaml ${HOME}/Taskfile.yaml
 
