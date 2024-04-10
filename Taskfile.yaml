@@ -7,3 +7,11 @@ tasks:
     # - mkdir -p ~/.task
     # - cp -R . ~/.task
     - cp TaskfileGlobal.yaml ~/Taskfile.yaml
+
+  release:
+    vars:
+      VERSION: 
+        sh: yq '.vars.VERSION' TaskfileGlobal.yaml 
+    cmds:
+    - git tag {{ .VERSION }}
+    - git push origin {{ .VERSION }}

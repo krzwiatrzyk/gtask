@@ -1,23 +1,31 @@
 version: 3
 
 vars:
-  VERSION: 0.6.0
+  VERSION: v0.7.0
 
 includes:
-  aws: "~/.task/aws/Taskfile.yaml"
+  aws: https://raw.githubusercontent.com/krzwiatrzyk/gtask/{{ .VERSION }}/aws/Taskfile.yaml
   test: 
     taskfile: "~/.task/test/Taskfile.yaml"
     dir: "~/.task/test"
-  cloudflare: "~/.task/cloudflare/Taskfile.yaml"
-  terraform: "~/.task/terraform/Taskfile.yaml"
-  analytics: "~/.task/analytics/Taskfile.yaml"
-  code: "~/.task/modules/code/Taskfile.yaml"
+  cloudflare: https://raw.githubusercontent.com/krzwiatrzyk/gtask/{{ .VERSION }}/cloudflare/Taskfile.yaml
+  terraform: https://raw.githubusercontent.com/krzwiatrzyk/gtask/{{ .VERSION }}/terraform/Taskfile.yaml
+  analytics: https://raw.githubusercontent.com/krzwiatrzyk/gtask/{{ .VERSION }}/analytics/Taskfile.yaml
+  code: https://raw.githubusercontent.com/krzwiatrzyk/gtask/{{ .VERSION }}/modules/code/Taskfile.yaml
 
 tasks:
-  update:
+  update:clone:
     dir: ~/.task
     cmds:
     - git pull
     - cp ~/.task/TaskfileGlobal.yaml ~/Taskfile.yaml
+
+  update:
+    cmds:
+    - wget https://raw.githubusercontent.com/krzwiatrzyk/gtask/main/TaskfileGlobal.yaml -O ${HOME}/Taskfile.yaml
+
+  update:taskfile:
+    cmds:
+    - sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
   version: echo {{ .VERSION }}
