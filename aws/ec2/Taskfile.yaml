@@ -17,3 +17,17 @@ tasks:
       aws elbv2 describe-target-groups 
       --query 'TargetGroups[*].[TargetGroupName, TargetGroupArn]' --output json | 
       jq 'map({(.[0]): .[1]}) | add' > {{.USER_WORKING_DIR}}/target-groups.json
+
+  port-forward:
+    requires:
+      vars:
+        - LOCAL_PORT
+        - REMOTE_PORT
+    vars:
+      EC2_NAME:
+        sh: |
+          aws ec2 describe-instances --query 'Reservations[].Instances[].{Name: Tags[?Key==`Name`]|[0].Value}' --output text | fzf
+      EC2_ID:
+        sh: aws ec2 describe-instances --filters "Name=tag:Name,Values={{ .EC2_NAME }}" --query "Reservations[].Instances[].InstanceId" --output json --region=eu-west-1 | jq -r ".[0]"
+    cmds:
+    - aws ssm start-session --target {{ .EC2_ID }} --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["{{ .REMOTE_PORT }}"],"localPortNumber":["{{ .LOCAL_PORT}}"]}'
