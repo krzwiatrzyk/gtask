@@ -1,6 +1,11 @@
 version: 3
 
 tasks:
+  list:
+    cmds:
+    - aws ec2 describe-instances --query "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value, Id:InstanceId, State:State.Name, PublicIP:PublicIpAddress, PrivateIP:PrivateIpAddress, CreationDate:LaunchTime}" --output table | fzf
+
+
   connect:
     vars:
       EC2_ID:
